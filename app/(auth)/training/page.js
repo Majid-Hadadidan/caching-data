@@ -1,6 +1,12 @@
-import { getTrainings } from '@/lib/training';
+import { verfyAuth } from "@/lib/auth";
+import { getTrainings } from "@/lib/training";
+import { redirect } from "next/navigation";
 
 export default async function TrainingPage() {
+  const result = await verfyAuth();
+  if (!result.user) {
+    redirect("/");
+  }
   const trainingSessions = getTrainings();
 
   return (
